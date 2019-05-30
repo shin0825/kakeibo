@@ -1,0 +1,2 @@
+class SpendReason < ApplicationRecord
+end

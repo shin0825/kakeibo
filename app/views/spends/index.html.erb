@@ -1,0 +1,6 @@
+<ul class="spends">
+  <% @spends.each do |spend| %>
+  <li><%= spend.amount %></li>
+  <li><%= spend.user_name %></li>
+  <% end %>
+</ul>

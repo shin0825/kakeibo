@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1
+  wallet: one
+  reason: one
+  user: one
+
+two:
+  amount: 1
+  wallet: two
+  reason: two
+  user: two
