@@ -1,0 +1,118 @@
+<script>
+  window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+  };
+
+  function getConfig(p_datas, p_labels, p_title_text) {
+    return config = {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: p_datas,
+          backgroundColor: [
+            window.chartColors.red,
+            window.chartColors.orange,
+            window.chartColors.yellow,
+            window.chartColors.green,
+            window.chartColors.blue,
+            window.chartColors.purple,
+            window.chartColors.grey,
+          ]
+        }],
+        labels: p_labels
+      },
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: p_title_text
+        },
+        animation: {
+          animateScale: true,
+          animateRotate: true
+        }
+      }
+    };
+  };
+  window.onload = function () {
+    var spendsCtx = document.getElementById('spends-chart-area').getContext('2d');
+    var spendsChartArea = new Chart(spendsCtx, getConfig( <%= @spend_datas %> , <%= @spend_labels.to_json.html_safe %> , "<%= @p_targetDate.strftime('%Y/%m') %>の出費"));
+    var incomesCtx = document.getElementById('incomes-chart-area').getContext('2d');
+    var incomesChartArea = new Chart(incomesCtx, getConfig( <%= @income_datas %> , <%= @income_labels.to_json.html_safe %> , "<%= @p_targetDate.strftime('%Y/%m') %>の収入"));
+  };
+</script>
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+      <div id="spends-canvas-holder" class="mb-4 mx-auto" style="width:450px">
+        <canvas id="spends-chart-area"></canvas>
+      </div>
+      <div class="card mb-4 mx-auto" style="width: 400px;">
+        <div style="text-align: center" class="card-header">
+          <%= @p_targetDate.strftime('%Y/%m') %>の出費
+        </div>
+        <table class="table mb-0">
+          <thead>
+            <tr style="text-align: center">
+              <th style="width: 50%">摘要</th>
+              <th style="width: 50%">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @spend_summarys.length > 0 %>
+            <% @spend_summarys.each do |summary| %>
+            <tr>
+              <td style="width: 50%; text-align: left; padding-left: 15%"><%= summary.reason_name %></td>
+              <td style="width: 50%; text-align: right; padding-right: 15%"><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr>
+              <td>いや、なんもねえ</td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-8 col-sm-12">
+      <div id="incomes-canvas-holder" class="mb-4 mx-auto" style="width:450px">
+        <canvas id="incomes-chart-area"></canvas>
+      </div>
+      <div class="card mb-4 mx-auto" style="width: 400px;">
+        <div style="text-align: center" class="card-header"><%= @p_targetDate.strftime('%Y/%m') %>の収入</div>
+        <table class="table mb-0">
+          <thead>
+            <tr style="text-align: center">
+              <th style="width: 50%">摘要</th>
+              <th style="width: 50%">金額</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @income_summarys.length > 0 %>
+            <% @income_summarys.each do |summary| %>
+            <tr>
+              <td style="width: 50%; text-align: left; padding-left: 15%"><%= summary.reason_name %></td>
+              <td style="width: 50%; text-align: right; padding-right: 15%"><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
+            </tr>
+            <% end %>
+            <% else %>
+            <tr>
+              <td>いや、なんもねえ</td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+</section>
