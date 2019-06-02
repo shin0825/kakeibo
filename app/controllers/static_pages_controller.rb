@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
   def home
-      flash[:success] = "Rootage!"
+    flash.now[:success] = "success!"
   end
 end
