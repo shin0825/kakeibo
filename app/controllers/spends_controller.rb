@@ -8,6 +8,7 @@ class SpendsController < ApplicationController
     if (params[:targetDate].present?)
       @p_targetDate = params[:targetDate].to_date
     end
+    @page_type = "spends"
 
     @summary = get_spend_summary(@p_targetDate)
   end

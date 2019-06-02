@@ -1,0 +1,23 @@
+<div class="card mb-2 p-2 mx-full align-middle" style="text-align: center;">
+  <table style="width: 100%">
+    <tbody>
+      <tr>
+        <% if @page_type == 'incomes' %>
+        <td class="p-0" style="text-align: left">
+          <%= link_to '< 前月', incomes_show_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <td class="p-0" style="text-align: right">
+          <%= link_to '翌月 >', incomes_show_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <% elsif @page_type == 'spends' %>
+        <td class="p-0" style="text-align: left">
+          <%= link_to '< 前月', spends_show_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <td class="p-0" style="text-align: right">
+          <%= link_to '翌月 >', spends_show_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>

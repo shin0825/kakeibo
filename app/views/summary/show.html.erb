@@ -9,7 +9,7 @@
     grey: 'rgb(201, 203, 207)'
   };
 
-  function getConfig(p_datas, p_labels, p_title_text) {
+  function getConfig(p_datas, p_labels) {
     return config = {
       type: 'doughnut',
       data: {
@@ -30,11 +30,10 @@
       options: {
         responsive: true,
         legend: {
-          position: 'top',
+          position: 'top'
         },
         title: {
-          display: true,
-          text: p_title_text
+          display: false
         },
         animation: {
           animateScale: true,
@@ -43,22 +42,27 @@
       }
     };
   };
-  window.onload = function () {
+  function showChart() {
     var spendsCtx = document.getElementById('spends-chart-area').getContext('2d');
-    var spendsChartArea = new Chart(spendsCtx, getConfig( <%= @spend_datas %> , <%= @spend_labels.to_json.html_safe %> , "<%= @p_targetDate.strftime('%Y/%m') %>の出費"));
+    var spendsChartArea = new Chart(spendsCtx, getConfig( <%= @spend_datas %> , <%= @spend_labels.to_json.html_safe %>));
     var incomesCtx = document.getElementById('incomes-chart-area').getContext('2d');
-    var incomesChartArea = new Chart(incomesCtx, getConfig( <%= @income_datas %> , <%= @income_labels.to_json.html_safe %> , "<%= @p_targetDate.strftime('%Y/%m') %>の収入"));
+    var incomesChartArea = new Chart(incomesCtx, getConfig( <%= @income_datas %> , <%= @income_labels.to_json.html_safe %>));
   };
+  $(window).on("load", function() {showChart()});
 </script>
 <section class="container-fluid">
   <div class="row">
-    <div class="col-lg-6 col-md-8 col-sm-12">
-      <div id="spends-canvas-holder" class="mb-4 mx-auto" style="width:450px">
-        <canvas id="spends-chart-area"></canvas>
-      </div>
-      <div class="card mb-4 mx-auto" style="width: 400px;">
+    <div class="mt-3 mx-auto col-lg-6 col-md-11 col-sm-11">
+      <div class="card mb-4 mx-auto" style="width: 100%;">
         <div style="text-align: center" class="card-header">
           <%= @p_targetDate.strftime('%Y/%m') %>の出費
+          &nbsp;<%= link_to '詳細', spends_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D')) %>
+        </div>
+        <div style="text-align: center" class="card-body">
+          <div id="spends-canvas-holder" class="mb-4 mx-auto">
+            <canvas id="spends-chart-area"></canvas>
+          </div>
+          <h1><%= @spend_total_amount.to_s(:delimited, delimiter: ',') %></h1>
         </div>
         <table class="table mb-0">
           <thead>
@@ -84,12 +88,18 @@
         </table>
       </div>
     </div>
-    <div class="col-lg-6 col-md-8 col-sm-12">
-      <div id="incomes-canvas-holder" class="mb-4 mx-auto" style="width:450px">
-        <canvas id="incomes-chart-area"></canvas>
-      </div>
-      <div class="card mb-4 mx-auto" style="width: 400px;">
-        <div style="text-align: center" class="card-header"><%= @p_targetDate.strftime('%Y/%m') %>の収入</div>
+    <div class="mt-3 mx-auto col-lg-6 col-md-11 col-sm-11">
+      <div class="card mb-4 mx-auto" style="width: 100%;">
+        <div style="text-align: center" class="card-header">
+          <%= @p_targetDate.strftime('%Y/%m') %>の収入
+          &nbsp;<%= link_to '詳細', incomes_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D'))  %>
+        </div>
+        <div style="text-align: center" class="card-body">
+          <div id="incomes-canvas-holder" class="mb-4 mx-auto">
+            <canvas id="incomes-chart-area"></canvas>
+          </div>
+          <h1><%= @income_total_amount.to_s(:delimited, delimiter: ',') %></h1>
+        </div>
         <table class="table mb-0">
           <thead>
             <tr style="text-align: center">
