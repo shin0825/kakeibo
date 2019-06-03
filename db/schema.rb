@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190529145854) do
+ActiveRecord::Schema.define(version: 20190528155222) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "income_reasons", force: :cascade do |t|
     t.string "name"
@@ -20,9 +23,9 @@ ActiveRecord::Schema.define(version: 20190529145854) do
 
   create_table "incomes", force: :cascade do |t|
     t.integer "amount"
-    t.integer "wallet_id"
-    t.integer "income_reason_id"
-    t.integer "user_id"
+    t.bigint "wallet_id"
+    t.bigint "income_reason_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["income_reason_id"], name: "index_incomes_on_income_reason_id"
@@ -38,9 +41,9 @@ ActiveRecord::Schema.define(version: 20190529145854) do
 
   create_table "spends", force: :cascade do |t|
     t.integer "amount"
-    t.integer "wallet_id"
-    t.integer "spend_reason_id"
-    t.integer "user_id"
+    t.bigint "wallet_id"
+    t.bigint "spend_reason_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["spend_reason_id"], name: "index_spends_on_spend_reason_id"
@@ -61,4 +64,10 @@ ActiveRecord::Schema.define(version: 20190529145854) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "incomes", "income_reasons"
+  add_foreign_key "incomes", "users"
+  add_foreign_key "incomes", "wallets"
+  add_foreign_key "spends", "spend_reasons"
+  add_foreign_key "spends", "users"
+  add_foreign_key "spends", "wallets"
 end
