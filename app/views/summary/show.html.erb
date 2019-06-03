@@ -64,7 +64,7 @@
         <div id="spends-canvas-holder" class="mb-4 mx-auto">
           <canvas id="spends-chart-area"></canvas>
         </div>
-        <h1><%= @spend_total_amount.to_s(:delimited, delimiter: ',') %></h1>
+        <h1><%= @spend_total_amount %></h1>
       </div>
       <table class="table mb-0">
         <thead>
@@ -100,7 +100,7 @@
         <div id="incomes-canvas-holder" class="mb-4 mx-auto">
           <canvas id="incomes-chart-area"></canvas>
         </div>
-        <h1><%= @income_total_amount.to_s(:delimited, delimiter: ',') %></h1>
+        <h1><%= @income_total_amount %></h1>
       </div>
       <table class="table mb-0">
         <thead>

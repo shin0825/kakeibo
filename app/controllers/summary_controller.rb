@@ -28,9 +28,9 @@ class SummaryController < ApplicationController
         'SUM(spends.amount) AS amount',
         'MAX(spends.created_at) AS created_at'
       )
-      .where('reason_id<>999', created_at: targetDate.all_month)
-      .group('reason_id', 'reason_name')
-      .order('reason_id')
+      .where('spend_reasons.id<>999', created_at: targetDate.all_month)
+      .group('spend_reasons.id', 'spend_reasons.name')
+      .order('spend_reasons.id')
     return summary
   end
 
@@ -58,9 +58,9 @@ class SummaryController < ApplicationController
         'SUM(incomes.amount) AS amount',
         'MAX(incomes.created_at) AS created_at'
       )
-      .where('reason_id<>999', created_at: targetDate.all_month)
-      .group('reason_id', 'reason_name')
-      .order('reason_id')
+      .where('income_reasons.id<>999', created_at: targetDate.all_month)
+      .group('income_reasons.id', 'income_reasons.name')
+      .order('income_reasons.id')
     return summary
   end
 
