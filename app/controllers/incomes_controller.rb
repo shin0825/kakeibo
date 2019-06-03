@@ -1,8 +1,4 @@
 class IncomesController < ApplicationController
-  def index
-    @incomes= Income.joins(:user).select('users.id AS user_id', 'users.name AS user_name', 'SUM(amount) AS amount').group('users.id','users.name').order('amount desc')
-  end
-
   def show
     @p_targetDate = Time.now
     if (params[:targetDate].present?)
@@ -12,6 +8,30 @@ class IncomesController < ApplicationController
 
     @summary = get_income_summary(@p_targetDate)
   end
+
+  def new
+    @income = Income.new()
+    @del_income = find_income_by_id
+  end
+
+  def create
+    @income = Income.new(income_params)
+    if @income.save
+      flash[:success] = "income created!" + @income.id.to_s
+      redirect_to new_income_path(id: @income.id)
+    else
+      flash[:danger] = "なんかダメでした"
+      redirect_to new_income_path()
+    end
+  end
+
+  def destroy
+    @del_income = find_income_by_id
+    @del_income.destroy
+    flash[:success] = "さっきのは消しました"
+    redirect_to new_income_path
+  end
+
 
   private
   def get_income_summary(targetDate)
@@ -27,5 +47,18 @@ class IncomesController < ApplicationController
       .order('incomes.created_at desc')
       .group_by(&:created_at)
     return summary
+  end
+
+  def income_params
+    params.require(:income).permit(:amount, :wallet_id, :income_reason_id,
+                                 :user_id)
+  end
+
+  def find_income_by_id
+    if !params[:id].blank?
+      return Income.find(params[:id])
+    else
+      return nil
+    end
   end
 end

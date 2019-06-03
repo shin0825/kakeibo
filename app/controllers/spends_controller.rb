@@ -1,8 +1,4 @@
 class SpendsController < ApplicationController
-  def index
-    @spends= Spend.joins(:user).select('users.id AS user_id', 'users.name AS user_name', 'amount').order('amount desc')
-  end
-
   def show
     @p_targetDate = Time.now
     if (params[:targetDate].present?)
@@ -11,6 +7,29 @@ class SpendsController < ApplicationController
     @page_type = "spends"
 
     @summary = get_spend_summary(@p_targetDate)
+  end
+
+  def new
+    @spend = Spend.new()
+    @del_spend = find_spend_by_id
+  end
+
+  def create
+    @spend = Spend.new(spend_params)
+    if @spend.save
+      flash[:success] = "spend created!" + @spend.id.to_s
+      redirect_to new_spend_path(id: @spend.id)
+    else
+      flash[:danger] = "なんかダメでした"
+      redirect_to new_spend_path()
+    end
+  end
+
+  def destroy
+    @del_spend = find_spend_by_id
+    @del_spend.destroy
+    flash[:success] = "さっきのは消しました"
+    redirect_to new_spend_path
   end
 
   private
@@ -27,5 +46,18 @@ class SpendsController < ApplicationController
       .order('spends.created_at desc')
       .group_by(&:created_at)
     return summary
+  end
+
+  def spend_params
+    params.require(:spend).permit(:amount, :wallet_id, :spend_reason_id,
+                                 :user_id)
+  end
+
+  def find_spend_by_id
+    if !params[:id].blank?
+      return Spend.find(params[:id])
+    else
+      return nil
+    end
   end
 end

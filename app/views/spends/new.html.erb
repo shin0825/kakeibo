@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="mt-3 mx-auto col-lg-8 col-md-11 col-sm-11" style="text-align: center;">
+    <%= form_for(@spend) do |f| %>
+    <div class="form-group">
+      <%= render 'shared/error_messages', object: f.object %>
+
+      <%= f.label :wallet_id, class: 'form-width' %>
+      <%= f.collection_select :wallet_id, Wallet.all, :id, :name, class: 'form-control' %>
+
+      <%= f.label :spend_reason_id, class: 'form-width' %>
+      <%= f.collection_select :spend_reason_id, SpendReason.all, :id, :name, class: 'form-control' %>
+
+      <%= f.label :user_id, class: 'form-width' %>
+      <%= f.collection_select :user_id, User.all, :id, :name, class: 'form-control' %>
+
+      <%= f.label :amount, class: 'form-width' %>
+      <%= f.text_field :amount, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit '買ったよ', class: "btn btn-primary" %>
+    </div>
+    <% end %>
+    <% if !@del_spend.blank? %>
+      <%= link_to "さっきのやっぱなし", @del_spend, method: :delete, data: {confirm: "魔剤?"}  %>
+    <% end %>
+    <div class="card mb-2 p-2 mx-auto align-middle" style="text-align: center;">
+      <%= link_to '戻る', root_path %>
+    </div>
+  </div>
+</div>

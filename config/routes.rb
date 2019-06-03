@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :spends
   resources :wallets
   resources :summary
+  resources :transfers
 end
