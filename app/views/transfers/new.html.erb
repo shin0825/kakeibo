@@ -1,41 +1,39 @@
-<div class="row">
-  <div class="mt-3 mx-auto col-lg-8 col-md-11 col-sm-11" style="text-align: center;">
-    <%= form_for(@income, url: transfers_path) do |f| %>
-      <div class="form-group">
-        <%= render 'shared/error_messages', object: f.object %>
-        <%= f.label :wallet_id, class: 'form-width' %>
-        <%= f.collection_select :wallet_id, Wallet.all, :id, :name, class: 'form-control' %>
+<%= form_for(@income, url: transfers_path) do |f| %>
+<h2>お金を振替る</h2>
+  <div class="form-group">
+    <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :user_id, class: 'form-width' %>
-        <%= f.collection_select :user_id, User.all, :id, :name, class: 'form-control' %>
+    <%= f.label 'FROM財布' %>
+    <%= f.collection_select :wallet_id, Wallet.all, :id, :name %>
 
-        <%= f.label :amount, class: 'form-width' %>
-        <%= f.text_field :amount, class: 'form-control' %>
-      </div>
+    <%= f.label 'FROM者名' %>
+    <%= f.collection_select :user_id, User.all, :id, :name %>
 
-      <h1>↓↓↓</h1>
-
-      <%= fields_for(@spend) do |s| %>
-      <div class="mt-4 form-group">
-        <%= s.label :wallet_id, class: 'form-width'%>
-        <%= s.collection_select :wallet_id, Wallet.all, :id, :name, class: 'form-control' %>
-
-        <%= s.label :user_id, class: 'form-width'%>
-        <%= s.collection_select :user_id, User.all, :id, :name, class: 'form-control' %>
-
-        <%= s.label :amount, class: 'form-width'%>
-        <%= s.text_field :amount, class: 'form-control' %>
-        </div>
-      <% end %>
-      <div class="form-group">
-        <%= f.submit '登録', class: 'btn btn-primary', style: 'padding: 5px;' %>
-      </div>
-    <% end %>
-    <div class="card mb-2 p-2 mx-auto align-middle" style="text-align: center;">
-      <%= link_to '戻る', root_path %>
-    </div>
+    <%= f.text_field :amount, :placeholder => 'FROM金額', class: 'form-control' %>
   </div>
-</div>
+
+  <h3>↓↓↓</h3>
+
+  <%= fields_for(@spend) do |s| %>
+  <div class="form-group">
+    <%= s.label 'TO財布'  %>
+    <%= s.collection_select :wallet_id, Wallet.all, :id, :name %>
+
+    <%= s.label 'TO者名' %>
+    <%= s.collection_select :user_id, User.all, :id, :name %>
+
+    <%= s.text_field :amount, :placeholder => 'TO金額', class: 'form-control' %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.submit '振替登録', class: 'btn' %>
+  </div>
+<% end %>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', root_path %>
+  </div>
+</footer>
 
 <script type="text/javascript">
   $(function(){

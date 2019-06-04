@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Kakeibo</title>
   <%= csrf_meta_tags %>
 
@@ -10,15 +11,13 @@
 </head>
 
 <body>
-  <section class="container-fluid">
-    <div class="row">
-      <div class="mt-3 mx-auto col-lg-8 col-md-11 col-sm-11">
-        <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "mt-3 alert alert-#{message_type}") %>
-        <% end %>
-      </div>
-    </div>
+  <div class="wrapper">
+    <header>
+      <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+      <% end %>
+    </header>
     <%= yield %>
-  </section>
+  </div>
 </body>
 </html>

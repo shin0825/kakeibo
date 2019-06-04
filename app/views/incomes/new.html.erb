@@ -1,30 +1,26 @@
-<div class="row">
-  <div class="mt-3 mx-auto col-lg-8 col-md-11 col-sm-11" style="text-align: center;">
-    <%= form_for(@income) do |f| %>
-    <div class="form-group">
-      <%= render 'shared/error_messages', object: f.object %>
+<%= form_for(@income) do |f| %>
+<h2>収入を登録する</h2>
+<div class="form-group">
+  <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :wallet_id, class: 'form-width' %>
-      <%= f.collection_select :wallet_id, Wallet.all, :id, :name, class: 'form-control' %>
+  <%= f.label '利用財布' %>
+  <%= f.collection_select :wallet_id, Wallet.all, :id, :name %>
 
-      <%= f.label :income_reason_id, class: 'form-width' %>
-      <%= f.collection_select :income_reason_id, IncomeReason.all, :id, :name, class: 'form-control' %>
+  <%= f.label '収入理由' %>
+  <%= f.collection_select :income_reason_id, IncomeReason.all, :id, :name %>
 
-      <%= f.label :user_id, class: 'form-width' %>
-      <%= f.collection_select :user_id, User.all, :id, :name, class: 'form-control' %>
+  <%= f.label '登録者名' %>
+  <%= f.collection_select :user_id, User.all, :id, :name %>
 
-      <%= f.label :amount, class: 'form-width' %>
-      <%= f.text_field :amount, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.submit 'もらったよ', class: "btn btn-primary" %>
-    </div>
-    <% end %>
-    <% if !@del_income.blank? %>
-    <%= link_to "さっきのやっぱなし", @del_income, method: :delete, data: {confirm: "魔剤?"}  %>
-    <% end %>
-    <div class="card mb-2 p-2 mx-auto align-middle" style="text-align: center;">
-      <%= link_to '戻る', root_path %>
-    </div>
-  </div>
+  <%= f.text_field :amount, :placeholder => '金額', class: 'form-control' %>
+  <%= f.submit '収入計上', class: "btn" %>
+  <% end %>
+  <% if !@del_income.blank? %>
+  <%= link_to "先ほどの登録を取消す", @del_income, method: :delete, data: {confirm: "削除してよろしいですか？"}  %>
+  <% end %>
 </div>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', root_path %>
+  </div>
+</footer>

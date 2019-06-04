@@ -1,11 +1,9 @@
-<div class="mt-3 mx-auto col-lg-8 col-md-11 col-sm-11">
-  <div>
-    <h1>Kakeibo. by Shinnaka Ruby on Rails </h1>
-    <div>
-      <%= link_to "使った", new_spend_path, class: "btn btn-block btn-primary", style: "margin-top: 32px" %>
-      <%= link_to "貰った", new_income_path, class: "btn btn-block btn-primary", style: "margin-top: 32px" %>
-      <%= link_to "振替え", new_transfer_path, class: "btn btn-block btn-primary", style: "margin-top: 32px" %>
-      <%= link_to "きろく", summary_show_path, class: "btn btn-block btn-primary", style: "margin-top: 32px" %>
-    </div>
+<form>
+  <h2>my 家計簿</h2>
+  <div class="form-group">
+    <%= link_to "使った", new_spend_path, class: "btn btn-block" %>
+    <%= link_to "貰った", new_income_path, class: "btn btn-block" %>
+    <%= link_to "振替え", new_transfer_path, class: "btn btn-block" %>
+    <%= link_to "きろく", summary_show_path, class: "btn btn-block" %>
   </div>
-</div>
+</form>

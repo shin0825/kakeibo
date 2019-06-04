@@ -1,51 +1,98 @@
-$font-size-base: 36px; //14px !default;
-$font-size-large: ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-small: ceil(($font-size-base * 0.85)) !default; // ~12px
-
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-body {
-  font-size: $font-size-base;
-};
-
-/* button */
-.btn {
-  font-size: 48px;
+.wrapper {
+  align-items: center;
+  background-color: #C8E6C9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
 }
 
-/* forms */
+h2 {
+  color: #388E3C;
+  margin: 22px 3px 33px 3px;
+}
+
+header {
+  top: 0;
+  color: #fff;
+  margin-top: 0.5rem;
+  max-width: 450px;
+  padding: 0 0.5rem;
+  position: absolute;
+  text-align: center;
+  width: 90%;
+}
+
+footer {
+  bottom: 0;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  max-width: 450px;
+  padding: 0.5rem 0;
+  position: absolute;
+  text-align: center;
+  width: 90%;
+}
+
+footer div.card {
+  font-size: 1.5rem;
+}
+
+a {
+  color: #388E3C;
+}
+
+form {
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #388E3C;
+  color: #212121;
+  margin-top: 0.5rem;
+  max-width: 450px;
+  padding: 1rem;
+  text-align: center;
+  width: 90%;
+}
+
+.form-group {
+  text-align: left;
+}
 
 input,
 textarea,
 select,
-.uneditable-input,
-.form-control {
+.uneditable-input {
   border: 1px solid #bbb;
-  width: 55%;
+  width: 74%;
+  margin-bottom: 15px;
   @include box_sizing;
 }
 
-input,
-.form-control {
-  height: 2.9rem;
-  display: inline-block;
-  padding: 0;
-}
-
-input,
 .btn {
-  height: 5rem;
+  background-color: #8BC34A;
+  color: #212121;
+  margin-top: 1.5rem;
   width: 100%;
-  display: inline-block;
-  padding: 0;
 }
 
-label.form-width {
-  width: 33%;
-  text-align: right;
-  margin-right: 2%
+a.btn {
+  color: #212121;
+}
+
+label {
+  width: 24%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
 }
