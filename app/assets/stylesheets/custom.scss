@@ -64,6 +64,16 @@ table.table tr.table {
   background-color: #f6f6f6;
 }
 
+td.detail-pager-prev {
+  text-align: left;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+}
+
+td.detail-pager-next {
+  text-align: right;
+  padding: 0.5rem 1.5rem 0.5rem 0;
+}
+
 h2 {
   color: #388E3C;
   margin: 22px 3px 33px 3px;
