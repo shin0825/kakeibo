@@ -42,6 +42,7 @@ class IncomesController < ApplicationController
         'SUM(incomes.amount) AS amount',
         'date(incomes.created_at) AS created_at'
       )
+      .where('income_reasons.id<>999')
       .where(created_at: targetDate.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('incomes.created_at desc')
