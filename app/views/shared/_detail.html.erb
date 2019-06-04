@@ -9,9 +9,9 @@
     <%= key.strftime('%Y/%m/%d') + 'の出費' %>
     <% end %>
   </div>
-  <table>
+  <table class="table">
     <thead>
-      <tr>
+      <tr class="table">
         <th>摘要</th>
         <th>金額</th>
       </tr>
@@ -26,12 +26,15 @@
     </tbody>
   </table>
 </div>
-<%= render 'shared/detail_goback' %>
 <% end %>
 <% else %>
 <div class="card">
   <%= @p_targetDate.strftime('%Y/%m') %>のデータ、なし
 </div>
-<%= render 'shared/detail_goback' %>
 <% end %>
 <%= render 'shared/detail_pager' %>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', summary_show_path %>
+  </div>
+</footer>

@@ -50,16 +50,12 @@
   };
   $(window).on("load", function() {showChart()});
 </script>
-<div class="card">
-  <%= link_to '戻る', root_url %>
-</div>
 <div class="container">
   <div class="row">
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header">
           <%= @p_targetDate.strftime('%Y/%m') %>の出費
-          &nbsp;<%= link_to '詳細', spends_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D')) %>
         </div>
         <div class="card-body">
           <div id="spends-canvas-holder">
@@ -73,9 +69,9 @@
             <% end %>
           </h1>
         </div>
-        <table>
+        <table class="table">
           <thead>
-            <tr>
+            <tr class="table">
               <th>摘要</th>
               <th>金額</th>
             </tr>
@@ -90,18 +86,21 @@
             <% end %>
             <% else %>
             <tr>
-              <td>いや、なんもねえ</td>
+              <td>なし</td>
+              <td>-</td>
             </tr>
             <% end %>
           </tbody>
         </table>
+        <div class="card-footer">
+          <%= link_to '詳細', spends_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D')) %>
+        </div>
       </div>
     </div>
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header">
           <%= @p_targetDate.strftime('%Y/%m') %>の収入
-          &nbsp;<%= link_to '詳細', incomes_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D'))  %>
         </div>
         <div class="card-body">
           <div id="incomes-canvas-holder">
@@ -115,9 +114,9 @@
             <% end %>
           </h1>
         </div>
-        <table>
+        <table class="table">
           <thead>
-            <tr>
+            <tr class="table">
               <th>摘要</th>
               <th>金額</th>
             </tr>
@@ -132,12 +131,21 @@
             <% end %>
             <% else %>
             <tr>
-              <td>いや、なんもねえ</td>
+              <td>なし</td>
+              <td>-</td>
             </tr>
             <% end %>
           </tbody>
         </table>
+        <div class="card-footer">
+          <%= link_to '詳細', incomes_show_path(targetDate: (@p_targetDate).strftime('%Y-%m-%D')) %>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', root_path %>
+  </div>
+</footer>

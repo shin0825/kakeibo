@@ -7,17 +7,14 @@
 .wrapper {
   align-items: center;
   background-color: #C8E6C9;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
+  padding-bottom: 80px;
   position: relative;
   width: 100%;
-}
-
-h2 {
-  color: #388E3C;
-  margin: 22px 3px 33px 3px;
 }
 
 header {
@@ -29,25 +26,6 @@ header {
   position: absolute;
   text-align: center;
   width: 90%;
-}
-
-footer {
-  bottom: 0;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  max-width: 450px;
-  padding: 0.5rem 0;
-  position: absolute;
-  text-align: center;
-  width: 90%;
-}
-
-footer div.card {
-  font-size: 1.5rem;
-}
-
-a {
-  color: #388E3C;
 }
 
 form {
@@ -66,6 +44,37 @@ form {
   text-align: left;
 }
 
+.card {
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #388E3C;
+  color: #212121;
+  margin-top: 0.5rem;
+  max-width: 450px;
+  text-align: center;
+  width: 100%;
+}
+
+table.table {
+  margin-bottom: 0.1rem;
+}
+
+table.table tr.table {
+  color: #388E3C;
+  background-color: #f6f6f6;
+}
+
+h2 {
+  color: #388E3C;
+  margin: 22px 3px 33px 3px;
+}
+
+label {
+  width: 24%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
 input,
 textarea,
 select,
@@ -74,6 +83,10 @@ select,
   width: 74%;
   margin-bottom: 15px;
   @include box_sizing;
+}
+
+input {
+  height: auto !important;
 }
 
 .btn {
@@ -87,12 +100,21 @@ a.btn {
   color: #212121;
 }
 
-label {
-  width: 24%;
-  margin-bottom: 15px;
-  @include box_sizing;
+a {
+  color: #388E3C;
 }
 
-input {
-  height: auto !important;
+footer {
+  bottom: 0;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  max-width: 450px;
+  padding: 0.5rem 0;
+  position: absolute;
+  text-align: center;
+  width: 90%;
+}
+
+footer div.card {
+  font-size: 1.5rem;
 }
