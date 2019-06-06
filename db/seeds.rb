@@ -17,24 +17,95 @@ User.create!(name:  "HO&GE",
              email: "hoge@nakascene.jp")
 
 IncomeReason.create!(name:  "給与")
+IncomeReason.create!(name:  "賞与")
+IncomeReason.create!(name:  "もらった")
 IncomeReason.create!(id:999, name:  "振替")
 
 Income.create!(
-  amount:  230000,
+  amount:  356789,
   wallet_id: 3,
   income_reason_id: 1,
-  user_id: 1,
+  user_id: 2,
   created_at: Time.new(2019, 6, 15, 9, 00, 00)
+)
+
+Income.create!(
+  amount:  400000,
+  wallet_id: 3,
+  income_reason_id: 2,
+  user_id: 2,
+  created_at: Time.new(2019, 6, 29, 0, 00, 00)
+)
+Income.create!(
+  amount:  5000,
+  wallet_id: 1,
+  income_reason_id: 3,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 1, 9, 00, 00)
+)
+Income.create!(
+  amount:  5000,
+  wallet_id: 1,
+  income_reason_id: 3,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 2, 9, 00, 00)
+)
+Income.create!(
+  amount:  5000,
+  wallet_id: 1,
+  income_reason_id: 3,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 3, 9, 00, 00)
+)
+Income.create!(
+  amount:  50000,
+  wallet_id: 1,
+  income_reason_id: 999,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 15, 15, 00, 00)
 )
 
 SpendReason.create!(name:  "食費")
 SpendReason.create!(name:  "家賃")
+SpendReason.create!(name:  "交遊費")
 SpendReason.create!(id:999, name:  "振替")
+
+Spend.create!(
+  amount:  1000,
+  wallet_id: 1,
+  spend_reason_id: 1,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 15, 12, 00, 00)
+)
+
+Spend.create!(
+  amount:  1010,
+  wallet_id: 1,
+  spend_reason_id: 1,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 16, 12, 00, 00)
+)
+
+Spend.create!(
+  amount:  1002,
+  wallet_id: 1,
+  spend_reason_id: 1,
+  user_id: 1,
+  created_at: Time.new(2019, 6, 17, 12, 00, 00)
+)
 
 Spend.create!(
   amount:  50000,
   wallet_id: 3,
   spend_reason_id: 2,
+  user_id: 2,
+  created_at: Time.new(2019, 6, 15, 15, 00, 00)
+)
+
+Spend.create!(
+  amount:  50000,
+  wallet_id: 3,
+  spend_reason_id: 999,
   user_id: 1,
   created_at: Time.new(2019, 6, 15, 15, 00, 00)
 )
