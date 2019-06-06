@@ -7,7 +7,7 @@
   <%= f.collection_select :wallet_id, Wallet.all, :id, :name %>
 
   <%= f.label '出費理由' %>
-  <%= f.collection_select :spend_reason_id, SpendReason.all, :id, :name %>
+  <%= f.collection_select :spend_reason_id, SpendReason.all.where('id <> 999'), :id, :name %>
 
   <%= f.label '登録者名' %>
   <%= f.collection_select :user_id, User.all, :id, :name %>
