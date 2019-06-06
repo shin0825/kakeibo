@@ -29,7 +29,7 @@ class SummaryController < ApplicationController
         'MAX(spends.created_at) AS created_at'
       )
       .where('spend_reasons.id<>999')
-      .where(created_at: targetDate.all_month)
+      .where(created_at: targetDate.in_time_zone.all_month)
       .group('spend_reasons.id', 'spend_reasons.name')
       .order('spend_reasons.id')
     return summary
@@ -42,7 +42,7 @@ class SummaryController < ApplicationController
         'MAX(spends.created_at) AS created_at'
       )
       .where('spend_reason_id<>999')
-      .where(created_at: targetDate.all_month)
+      .where(created_at: targetDate.in_time_zone.all_month)
 
     amount = 0
     if summary.length > 0
@@ -61,7 +61,7 @@ class SummaryController < ApplicationController
         'MAX(incomes.created_at) AS created_at'
       )
       .where('income_reasons.id<>999')
-      .where(created_at: targetDate.all_month)
+      .where(created_at: targetDate.in_time_zone.all_month)
       .group('income_reasons.id', 'income_reasons.name')
       .order('income_reasons.id')
     return summary
@@ -73,7 +73,7 @@ class SummaryController < ApplicationController
         'MAX(created_at) AS created_at'
       )
       .where('income_reason_id<>999')
-      .where(created_at: targetDate.all_month)
+      .where(created_at: targetDate.in_time_zone.all_month)
 
     amount = 0
     if summary.length > 0

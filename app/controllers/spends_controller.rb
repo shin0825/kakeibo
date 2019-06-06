@@ -42,7 +42,7 @@ class SpendsController < ApplicationController
         'date(spends.created_at) AS created_at'
       )
       .where('spend_reasons.id<>999')
-      .where(created_at: targetDate.all_month)
+      .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('spends.created_at desc')
       .group_by(&:created_at)
