@@ -1,4 +1,4 @@
-<%= form_for(@income, url: transfers_path) do |f| %>
+<%= form_for(@spend, url: transfers_path) do |f| %>
 <h2>お金を振替る</h2>
   <div class="form-group">
     <%= render 'shared/error_messages', object: f.object %>
@@ -14,7 +14,7 @@
 
   <h3>↓↓↓</h3>
 
-  <%= fields_for(@spend) do |s| %>
+  <%= fields_for(@income) do |s| %>
   <div class="form-group">
     <%= s.label 'TO財布'  %>
     <%= s.collection_select :wallet_id, Wallet.all, :id, :name %>
