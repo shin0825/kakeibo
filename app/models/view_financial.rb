@@ -1,0 +1,2 @@
+class ViewFinancial < ApplicationRecord
+end
