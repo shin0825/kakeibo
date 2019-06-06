@@ -34,7 +34,7 @@ Income.create!(
   wallet_id: 3,
   income_reason_id: 2,
   user_id: 2,
-  created_at: Time.new(2019, 6, 29, 0, 00, 00)
+  created_at: Time.new(2019, 6, 30, 9, 00, 00)
 )
 Income.create!(
   amount:  5000,
