@@ -1,15 +1,18 @@
 class WalletSummaryController < ApplicationController
 
   def show
+    @p_targetDate = Time.now
     @wallet_summary = get_wallets_summary()
-    @summary = get_wallet_summary(1, Time.now)
   end
 
   def detail
     @p_targetDate = Time.now
-    if (params[:targetDate].present?)
-      @p_targetDate = params[:targetDate].to_date
-    end
+    @p_targetDate = params[:targetDate].to_date if (params[:targetDate].present?)
+
+    @p_walletName = '全て'
+    @p_walletName = Wallet.find_by(id: params[:walletId]).name if (params[:walletId].present? && !params[:walletId].blank?)
+
+    @p_walletId = params[:walletId] if (params[:walletId].present?)
 
     @summary = get_wallet_summary(@p_targetDate)
   end
@@ -23,7 +26,7 @@ class WalletSummaryController < ApplicationController
     return wallets_summary
   end
 
-  def get_wallet_summary(walletId, targetDate)
+  def get_wallet_summary(targetDate)
     summary =  ViewFinancial.joins(:wallet)
       .joins(:user)
       .select(
@@ -34,10 +37,10 @@ class WalletSummaryController < ApplicationController
         'amount',
         'date(view_financials.created_at) AS created_at'
       )
-      .where(wallet_id: walletId)
       .where(created_at: targetDate.all_month)
       .order('created_at desc')
-    return summary
+    summary = summary.where(wallet_id: params[:walletId]) if params[:walletId].present?
+    return summary.group_by(&:created_at)
   end
 
 end

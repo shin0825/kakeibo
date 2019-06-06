@@ -1,0 +1,14 @@
+<div class="card">
+  <table style="width: 100%;">
+    <tbody>
+      <tr>
+        <td class="detail-pager-prev">
+          <%= link_to '< 前月', wallet_summary_detail_path(walletId: @p_walletId, targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <td class="detail-pager-next">
+          <%= link_to '翌月 >', wallet_summary_detail_path(walletId: @p_walletId, targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

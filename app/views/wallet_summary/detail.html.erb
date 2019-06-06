@@ -1,0 +1,38 @@
+<%= render 'detail_pager' %>
+<% if @summary.length > 0 %>
+<% @summary.each do |key,summarys| %>
+<div class="card">
+  <div class="card-header">
+    <%= key.strftime('%Y/%m/%d') + 'の' + @p_walletName %>
+  </div>
+  <table class="table">
+    <thead>
+      <tr class="table">
+        <th>摘要</th>
+        <th>金額</th>
+        <th>人</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% summarys.each do |summary| %>
+      <tr>
+        <td><%= summary.reason_name %></td>
+        <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
+        <td><%= summary.user_name %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<% end %>
+<% else %>
+<div class="card">
+  <%= @p_targetDate.strftime('%Y/%m') %>のデータ、なし
+</div>
+<% end %>
+<%= render 'detail_pager' %>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', wallet_summary_show_path %>
+  </div>
+</footer>
