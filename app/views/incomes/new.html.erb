@@ -1,7 +1,7 @@
 <%= form_for(@income) do |f| %>
 <h2>収入を登録する</h2>
 <div class="form-group">
-  <%= render 'shared/error_messages', object: f.object %>
+  <%= render 'shared/error_messages', object: @income %>
 
   <%= f.label '利用財布' %>
   <%= f.collection_select :wallet_id, Wallet.all, :id, :name %>

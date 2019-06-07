@@ -20,8 +20,7 @@ class SpendsController < ApplicationController
       flash[:success] = "spend created!" + @spend.id.to_s
       redirect_to new_spend_path(id: @spend.id)
     else
-      flash[:danger] = "なんかダメでした"
-      redirect_to new_spend_path()
+      render 'new'
     end
   end
 

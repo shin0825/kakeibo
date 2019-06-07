@@ -20,8 +20,7 @@ class IncomesController < ApplicationController
       flash[:success] = "income created!" + @income.id.to_s
       redirect_to new_income_path(id: @income.id)
     else
-      flash[:danger] = "なんかダメでした"
-      redirect_to new_income_path()
+      render 'new'
     end
   end
 

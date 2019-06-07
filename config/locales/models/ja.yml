@@ -1,0 +1,10 @@
+ja:
+  activerecord:
+    models:
+      income: 収入
+      spend: 費用
+    attributes:
+      income:
+        amount: 金額
+      spend:
+        amount: 金額
