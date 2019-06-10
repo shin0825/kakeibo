@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'New Spend Budget', new_spend_budget_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @spend_budgets.each do |spend_budget| %>
+      <tr>
+        <td><%= spend_budget.target_date %> / </td>
+        <td><%= spend_budget.id %> / </td>
+        <td><%= spend_budget.amount %> / </td>
+        <td><%= spend_budget.spend_reason.name %> / </td>
+        <td><%= spend_budget.user.name %></td>
+        <td><%= link_to 'Edit', edit_spend_budget_path(spend_budget) %></td>
+        <td><%= link_to 'Destroy', spend_budget, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<footer>
+  <div class="card">
+    <%= link_to '戻る', root_path %>
+  </div>
+</footer>

@@ -1,0 +1,32 @@
+<%= form_with(model: spend_budget, local: true) do |f| %>
+  <% if spend_budget.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(spend_budget.errors.count, "error") %> prohibited this spend_budget from being saved:</h2>
+
+      <ul>
+      <% spend_budget.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h2>予算を考える</h2>
+
+  <div class="form-group">
+    <%= f.label '出費理由' %>
+    <%= f.collection_select :spend_reason_id, SpendReason.all.where('id <> 999'), :id, :name , {}, { :class => 'form-control collection' } %>
+
+    <%= f.label '登録者名' %>
+    <%= f.collection_select :user_id, User.all, :id, :name , {}, { :class => 'form-control collection' } %>
+
+    <%= f.label '対象年月' %>
+    <%= f.date_select :target_date, { :discard_day => true } , { :class => 'form-control date' } %>
+
+    <%= f.text_field :amount, :placeholder => '金額', class: 'form-control input' %>
+
+    <%= f.text_field :memo, :placeholder => 'メモ', class: 'form-control input' %>
+
+    <%= f.submit :class => "btn" %>
+  </div>
+<% end %>

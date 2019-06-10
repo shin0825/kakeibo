@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190605213939) do
+ActiveRecord::Schema.define(version: 20190610033028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20190605213939) do
     t.index ["income_reason_id"], name: "index_incomes_on_income_reason_id"
     t.index ["user_id"], name: "index_incomes_on_user_id"
     t.index ["wallet_id"], name: "index_incomes_on_wallet_id"
+  end
+
+  create_table "spend_budgets", force: :cascade do |t|
+    t.date "target_date"
+    t.integer "amount"
+    t.text "memo"
+    t.bigint "spend_reason_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spend_reason_id"], name: "index_spend_budgets_on_spend_reason_id"
+    t.index ["user_id"], name: "index_spend_budgets_on_user_id"
   end
 
   create_table "spend_reasons", force: :cascade do |t|
@@ -67,6 +79,8 @@ ActiveRecord::Schema.define(version: 20190605213939) do
   add_foreign_key "incomes", "income_reasons"
   add_foreign_key "incomes", "users"
   add_foreign_key "incomes", "wallets"
+  add_foreign_key "spend_budgets", "spend_reasons"
+  add_foreign_key "spend_budgets", "users"
   add_foreign_key "spends", "spend_reasons"
   add_foreign_key "spends", "users"
   add_foreign_key "spends", "wallets"

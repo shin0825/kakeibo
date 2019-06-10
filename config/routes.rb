@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :summary
   resources :transfers
   resources :wallet_summary
+  resources :spend_budgets
 end
