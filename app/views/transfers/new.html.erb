@@ -4,12 +4,12 @@
     <%= render 'shared/error_messages', object: f.object %>
 
     <%= f.label 'FROM財布' %>
-    <%= f.collection_select :wallet_id, Wallet.all, :id, :name %>
+    <%= f.collection_select :wallet_id, Wallet.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
     <%= f.label 'FROM者名' %>
-    <%= f.collection_select :user_id, User.all, :id, :name %>
+    <%= f.collection_select :user_id, User.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
-    <%= f.text_field :amount, :placeholder => 'FROM金額', class: 'form-control' %>
+    <%= f.text_field :amount, :placeholder => 'FROM金額', class: 'form-control input' %>
   </div>
 
   <h3>↓↓↓</h3>
@@ -17,12 +17,12 @@
   <%= fields_for(@income) do |s| %>
   <div class="form-group">
     <%= s.label 'TO財布'  %>
-    <%= s.collection_select :wallet_id, Wallet.all, :id, :name %>
+    <%= s.collection_select :wallet_id, Wallet.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
     <%= s.label 'TO者名' %>
-    <%= s.collection_select :user_id, User.all, :id, :name %>
+    <%= s.collection_select :user_id, User.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
-    <%= s.text_field :amount, :placeholder => 'TO金額', class: 'form-control' %>
+    <%= s.text_field :amount, :placeholder => 'TO金額', class: 'form-control input' %>
     </div>
   <% end %>
   <div class="form-group">

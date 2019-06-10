@@ -85,12 +85,12 @@ label {
   @include box_sizing;
 }
 
-input,
+.form-group > input,
 textarea,
 select,
-.uneditable-input {
+.uneditable-input,
+.form-control {
   border: 1px solid #bbb;
-  width: 74%;
   margin-bottom: 15px;
   @include box_sizing;
 }
@@ -99,11 +99,25 @@ input {
   height: auto !important;
 }
 
+.form-group > .input {
+  width: 99.5%;
+}
+
+.form-group > .collection {
+  display: inline-block;
+  width: 74.5%;
+}
+
+.form-group > .date {
+  display: inline-block;
+  width: 36.5%;
+}
+
 .btn {
   background-color: #8BC34A;
   color: #212121;
   margin-top: 1.5rem;
-  width: 100%;
+  width: 99.5%;
 }
 
 a.btn {
