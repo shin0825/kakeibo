@@ -80,8 +80,9 @@
             <% if @spend_summarys.length > 0 %>
             <% @spend_summarys.each do |summary| %>
             <tr>
-              <td><%= summary.reason_name %></td>
+              <td><%= summary.name %></td>
               <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
+              <td><%= summary.by_budget_amount.to_s(:delimited, delimiter: ',') %></td>
             </tr>
             <% end %>
             <% else %>
