@@ -22,36 +22,17 @@ class SummaryController < ApplicationController
   private
   def get_spend_summary_by_reason(targetDate)
 
-    summary = SpendReason
-      .search_without_transfar()
-      .joins('LEFT OUTER JOIN (
-          SELECT
-            spend_reason_id AS id,
-            DATE(MAX(created_at)) AS date_at,
-            SUM(amount) AS amount
-          FROM
-            spends
-          GROUP BY
-            spend_reason_id
-        ) AS spends
-        ON spends.id = spend_reasons.id')
-      .joins('LEFT OUTER JOIN (
-          SELECT
-            spend_reason_id AS id,
-            DATE(MAX(target_date)) AS date_at,
-            SUM(amount) AS amount
-          FROM
-            spend_budgets
-          GROUP BY
-            spend_reason_id
-        ) AS budgets
-        ON budgets.id = spend_reasons.id')
-        .select(:id, :name)
-        .select('COALESCE(spends.amount, 0) AS amount')
-        .select('COALESCE(budgets.amount, 0) - COALESCE(spends.amount, 0) AS by_budget_amount')
-        .order(:id)
+    summary = SpendReason.left_outer_joins(:spend).left_outer_joins(:spend_budget)
+    return summary.where('spends.id IS NULL')
+      .or(summary.where(id: Spend.where(created_at: targetDate.in_time_zone.all_month)))
+      .where('spend_budgets.id IS NULL')
+      .or(summary.where(id: SpendBudget.where(target_date: targetDate.in_time_zone.all_month)))
+      .select('spend_reasons.name AS name')
+      .select('SUM(COALESCE(spends.amount, 0)) AS amount')
+      .select('SUM(COALESCE(spend_budgets.amount, 0)) AS b_amount')
+      .group('spend_reasons.id', 'spend_reasons.name')
+      .order('spend_reasons.id')
 
-    return summary
   end
 
   def get_spend_total_amount(targetDate)

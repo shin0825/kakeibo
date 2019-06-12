@@ -74,6 +74,7 @@
             <tr class="table">
               <th>摘要</th>
               <th>金額</th>
+              <th>予算</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +83,7 @@
             <tr>
               <td><%= summary.name %></td>
               <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
-              <td><%= summary.by_budget_amount.to_s(:delimited, delimiter: ',') %></td>
+              <td><%= summary.b_amount.to_s(:delimited, delimiter: ',') %></td>
             </tr>
             <% end %>
             <% else %>
