@@ -34,14 +34,13 @@ class IncomesController < ApplicationController
 
   private
   def get_income_summary(targetDate)
-    summary =  Income.joins(:income_reason)
+    summary =  Income.search_without_transfar.joins(:income_reason)
       .select(
         'income_reasons.id AS reason_id',
         'income_reasons.name AS reason_name',
         'SUM(incomes.amount) AS amount',
         'date(incomes.created_at) AS created_at'
       )
-      .where('income_reasons.id<>999')
       .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('incomes.created_at desc')

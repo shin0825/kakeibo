@@ -33,14 +33,13 @@ class SpendsController < ApplicationController
 
   private
   def get_spend_summary(targetDate)
-    summary =  Spend.joins(:spend_reason)
+    summary =  Spend.search_without_transfar.joins(:spend_reason)
       .select(
         'spend_reasons.id AS reason_id',
         'spend_reasons.name AS reason_name',
         'SUM(spends.amount) AS amount',
         'date(spends.created_at) AS created_at'
       )
-      .where('spend_reasons.id<>999')
       .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('spends.created_at desc')
