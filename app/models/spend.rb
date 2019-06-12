@@ -5,4 +5,13 @@ class Spend < ApplicationRecord
   belongs_to :user
 
   scope :search_without_transfar, ->() { where.not(spend_reason_id: 999) }
+  scope :search_created_at_between, -> (from, to) {
+    if from.present? && to.present?
+      where(created_at: from..to)
+    elsif from.present?
+      where('created_at >= ?', from)
+    elsif to.present?
+      where('created_at <= ?', to)
+    end
+  }
 end
