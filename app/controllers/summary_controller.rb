@@ -7,7 +7,7 @@ class SummaryController < ApplicationController
     @spend_summarys = get_spend_summary_by_reason(@p_targetDate)
     @income_summarys = get_income_summary_by_reason(@p_targetDate)
 
-    spends_chart = @spend_summarys.to_a.pluck(:name, :amount)
+    spends_chart = @spend_summarys.to_a.pluck(:name, :s_amount)
     @spend_labels = spends_chart.map(&:first)
     @spend_datas = spends_chart.map(&:second)
 
@@ -21,18 +21,23 @@ class SummaryController < ApplicationController
 
   private
   def get_spend_summary_by_reason(targetDate)
+      budgets_summary = SpendBudget
+        .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+        .group(:spend_reason_id)
+        .select('spend_reason_id AS id, SUM(amount) AS b_amount')
 
-    summary = SpendReason.left_outer_joins(:spend).left_outer_joins(:spend_budget)
-    return summary.where('spends.id IS NULL')
-      .or(summary.where(id: Spend.where(created_at: targetDate.in_time_zone.all_month)))
-      .where('spend_budgets.id IS NULL')
-      .or(summary.where(id: SpendBudget.where(target_date: targetDate.in_time_zone.all_month)))
-      .select('spend_reasons.name AS name')
-      .select('SUM(COALESCE(spends.amount, 0)) AS amount')
-      .select('SUM(COALESCE(spend_budgets.amount, 0)) AS b_amount')
-      .group('spend_reasons.id', 'spend_reasons.name')
-      .order('spend_reasons.id')
+      spends_summary = Spend
+        .search_created_at_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+        .group(:spend_reason_id)
+        .select('spend_reason_id AS id, SUM(amount) AS s_amount')
 
+       return SpendReason.search_without_transfar()
+        .joins("LEFT JOIN (#{budgets_summary.to_sql}) budgets ON spend_reasons.id = budgets.id")
+        .joins("LEFT JOIN (#{spends_summary.to_sql}) spends ON spend_reasons.id = spends.id")
+        .select('name AS name')
+        .select('COALESCE(b_amount, 0) - COALESCE(s_amount, 0) AS b_amount')
+        .select('COALESCE(s_amount, 0) AS s_amount')
+        .order(:id)
   end
 
   def get_spend_total_amount(targetDate)
