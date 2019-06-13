@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20190610033028) do
   end
 
   create_table "spend_budgets", force: :cascade do |t|
-    t.date "target_date"
+    t.datetime "target_date"
     t.integer "amount"
     t.text "memo"
     t.bigint "spend_reason_id"
