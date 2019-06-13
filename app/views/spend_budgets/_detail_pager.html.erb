@@ -1,0 +1,17 @@
+<div class="card">
+  <table style="width: 100%;">
+    <tbody>
+      <tr>
+        <td class="detail-pager-prev">
+          <%= link_to '< 前月', spend_budgets_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+        <td>
+          <%= link_to '>当月<', spend_budgets_path %>
+        </td>
+        <td class="detail-pager-next">
+          <%= link_to '翌月 >', spend_budgets_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
