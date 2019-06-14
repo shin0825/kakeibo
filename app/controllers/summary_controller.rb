@@ -16,10 +16,25 @@ class SummaryController < ApplicationController
     @income_datas = incomes_chart.map(&:second)
 
     @spend_total_amount = get_spend_total_amount(@p_targetDate)
+    @spend_budget_total_amount = get_spend_budget_total_amount(@p_targetDate)
     @income_total_amount = get_income_total_amount(@p_targetDate)
   end
 
   private
+  def get_spend_budget_total_amount(targetDate)
+    budgets_summary = SpendBudget
+      .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+      .select('SUM(COALESCE(amount, 0)) AS b_amount')
+      .select('MAX(target_date) AS darget_date')
+
+    amount = 0
+    if budgets_summary.length > 0
+      amount = budgets_summary.first.b_amount
+    end
+
+    return amount
+  end
+
   def get_spend_summary_by_reason(targetDate)
       budgets_summary = SpendBudget
         .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
@@ -37,7 +52,7 @@ class SummaryController < ApplicationController
         .select('name AS name')
         .select('COALESCE(b_amount, 0) - COALESCE(s_amount, 0) AS b_amount')
         .select('COALESCE(s_amount, 0) AS s_amount')
-        .order(:id)
+        .order('COALESCE(s_amount, 0) DESC')
   end
 
   def get_spend_total_amount(targetDate)

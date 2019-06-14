@@ -30,7 +30,12 @@
       options: {
         responsive: true,
         legend: {
-          position: 'top'
+          position: 'top',
+          labels: {
+            filter: function (items, chartData) {
+              return items.index < 6;
+            },
+          }
         },
         title: {
           display: false
@@ -42,13 +47,16 @@
       }
     };
   };
+
   function showChart() {
     var spendsCtx = document.getElementById('spends-chart-area').getContext('2d');
-    var spendsChartArea = new Chart(spendsCtx, getConfig( <%= @spend_datas %> , <%= @spend_labels.to_json.html_safe %>));
+    var spendsChartArea = new Chart(spendsCtx, getConfig( <%= @spend_datas %> , <%= @spend_labels.to_json.html_safe %> ));
     var incomesCtx = document.getElementById('incomes-chart-area').getContext('2d');
-    var incomesChartArea = new Chart(incomesCtx, getConfig( <%= @income_datas %> , <%= @income_labels.to_json.html_safe %>));
+    var incomesChartArea = new Chart(incomesCtx, getConfig( <%= @income_datas %> , <%= @income_labels.to_json.html_safe %> ));
   };
-  $(window).on("load", function() {showChart()});
+  $(window).on("load", function () {
+    showChart()
+  });
 </script>
 <div class="container">
   <div class="row">
@@ -61,13 +69,18 @@
           <div id="spends-canvas-holder">
             <canvas id="spends-chart-area"></canvas>
           </div>
-          <h1>
             <% if !@spend_total_amount.blank? %>
-              <%= @spend_total_amount.to_s(:delimited, delimiter: ',') %>
+            <h1>
+            <%= @spend_total_amount.to_s(:delimited, delimiter: ',') %>
+            </h1>
+              <% if !@spend_budget_total_amount.blank? %>
+              あと <%= (@spend_total_amount - @spend_budget_total_amount).to_s(:delimited, delimiter: ',') %>
+              <% end %>
             <% else %>
-              ない
+            <h1>
+            ない
+            </h1>
             <% end %>
-          </h1>
         </div>
         <table class="table">
           <thead>
@@ -110,9 +123,9 @@
           </div>
           <h1>
             <% if !@income_total_amount.blank? %>
-              <%= @income_total_amount.to_s(:delimited, delimiter: ',') %>
+            <%= @income_total_amount.to_s(:delimited, delimiter: ',') %>
             <% else %>
-              ない
+            ない
             <% end %>
           </h1>
         </div>
