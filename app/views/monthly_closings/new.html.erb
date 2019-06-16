@@ -3,16 +3,16 @@
 <div class="form-group">
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.label 'FROM財布' %>
+  <%= f.label '財布' %>
   <%= f.collection_select :wallet_id, Wallet.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
-  <%= f.label 'FROM者名' %>
+  <%= f.label '者名' %>
   <%= f.collection_select :user_id, User.all, :id, :name, {}, { :class => 'form-control collection' } %>
 
-  <%= f.label 'FROM対象年月' %>
+  <%= f.label '対象年月' %>
   <%= f.date_select :created_at, { :discard_day => true } , { :class => 'form-control date' } %>
 
-  <%= f.text_field :amount, :placeholder => 'FROM金額', class: 'form-control input' %>
+  <%= f.text_field :amount, :placeholder => '金額', class: 'form-control input' %>
 </div>
 
 <div class="form-group">
@@ -24,12 +24,3 @@
     <%= link_to '戻る', root_path %>
   </div>
 </footer>
-
-<script type="text/javascript">
-  $(function () {
-    $('#spend_amount').bind('keydown keyup keypress change', function () {
-      var value = $(this).val();
-      $('#income_amount').val(value);
-    });
-  });
-</script>
