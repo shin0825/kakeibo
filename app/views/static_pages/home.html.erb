@@ -2,9 +2,16 @@
   <h2>my 家計簿</h2>
   <div class="form-group">
     <%= link_to "よさん", spend_budgets_path, class: "btn btn-block" %>
+    </div>
+    <div class="form-group">
     <%= link_to "使った", new_spend_path, class: "btn btn-block" %>
     <%= link_to "貰った", new_income_path, class: "btn btn-block" %>
+    </div>
+    <div class="form-group">
     <%= link_to "振替え", new_transfer_path, class: "btn btn-block" %>
+    <%= link_to "月次調整", new_monthly_closing_path, class: "btn btn-block" %>
+    </div>
+    <div class="form-group">
     <%= link_to "きろく", summary_show_path, class: "btn btn-block" %>
     <%= link_to "さいふ", wallet_summary_show_path, class: "btn btn-block" %>
   </div>
