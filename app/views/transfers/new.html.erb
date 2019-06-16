@@ -36,10 +36,10 @@
 </footer>
 
 <script type="text/javascript">
-  $(function(){
-    $('#income_amount').bind('keydown keyup keypress change',function(){
+  $(function () {
+    $('#spend_amount').bind('keydown keyup keypress change', function () {
       var value = $(this).val();
-      $('#spend_amount').val(value);
+      $('#income_amount').val(value);
     });
   });
 </script>
