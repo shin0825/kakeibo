@@ -35,7 +35,7 @@ class WalletSummaryController < ApplicationController
         'users.name AS user_name',
         'reason_name',
         'amount',
-        'date(view_financials.created_at + interval \'9 hours\') AS created_dt'
+        'date(view_financials.created_at) AS created_dt'
       )
       .where(created_at: targetDate.in_time_zone.all_month)
       .order('view_financials.created_at desc')
