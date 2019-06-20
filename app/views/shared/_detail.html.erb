@@ -14,6 +14,7 @@
       <tr class="table">
         <th>摘要</th>
         <th>金額</th>
+        <th>作成</th>
       </tr>
     </thead>
     <tbody>
@@ -21,6 +22,7 @@
       <tr>
         <td><%= summary.reason_name %></td>
         <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
+        <td><%= summary.created_at.in_time_zone.strftime('%Y/%m/%d %H:%M:%S') %></td>
       </tr>
       <% end %>
     </tbody>

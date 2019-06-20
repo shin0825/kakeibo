@@ -39,12 +39,13 @@ class IncomesController < ApplicationController
         'income_reasons.id AS reason_id',
         'income_reasons.name AS reason_name',
         'SUM(incomes.amount) AS amount',
-        'date(incomes.created_at) AS created_at'
+        'incomes.created_at AS created_at',
+        'date(incomes.created_at) AS created_dt'
       )
       .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('incomes.created_at desc')
-      .group_by(&:created_at)
+      .group_by(&:created_dt)
     return summary
   end
 

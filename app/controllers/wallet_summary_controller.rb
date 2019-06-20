@@ -35,12 +35,12 @@ class WalletSummaryController < ApplicationController
         'users.name AS user_name',
         'reason_name',
         'amount',
-        'date(view_financials.created_at) AS created_at'
+        'date(view_financials.created_at) AS created_dt'
       )
-      .where(created_at: targetDate.in_time_zone.all_month)
+      .where(created_at: targetDate.all_month)
       .order('view_financials.created_at desc')
     summary = summary.where(wallet_id: params[:walletId]) if params[:walletId].present?
-    return summary.group_by(&:created_at)
+    return summary.group_by(&:created_dt)
   end
 
 end

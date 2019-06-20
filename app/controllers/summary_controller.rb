@@ -23,7 +23,7 @@ class SummaryController < ApplicationController
   private
   def get_spend_budget_total_amount(targetDate)
     budgets_summary = SpendBudget
-      .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+      .search_target_date_between(targetDate.all_month.first, targetDate.all_month.last)
       .select('SUM(COALESCE(amount, 0)) AS b_amount')
       .select('MAX(target_date) AS darget_date')
 
@@ -37,12 +37,12 @@ class SummaryController < ApplicationController
 
   def get_spend_summary_by_reason(targetDate)
       budgets_summary = SpendBudget
-        .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+        .search_target_date_between(targetDate.all_month.first, targetDate.all_month.last)
         .group(:spend_reason_id)
         .select('spend_reason_id AS id, SUM(amount) AS b_amount')
 
       spends_summary = Spend
-        .search_created_at_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
+        .search_created_at_between(targetDate.all_month.first, targetDate.all_month.last)
         .group(:spend_reason_id)
         .select('spend_reason_id AS id, SUM(amount) AS s_amount')
 
@@ -61,7 +61,7 @@ class SummaryController < ApplicationController
         'SUM(spends.amount) AS amount',
         'MAX(spends.created_at) AS created_at'
       )
-      .where(created_at: targetDate.in_time_zone.all_month)
+      .where(created_at: targetDate.all_month)
 
     amount = 0
     if summary.length > 0
@@ -79,7 +79,7 @@ class SummaryController < ApplicationController
         'SUM(incomes.amount) AS amount',
         'MAX(incomes.created_at) AS created_at'
       )
-      .where(created_at: targetDate.in_time_zone.all_month)
+      .where(created_at: targetDate.all_month)
       .group('income_reasons.id', 'income_reasons.name')
       .order('income_reasons.id')
     return summary
@@ -90,7 +90,7 @@ class SummaryController < ApplicationController
         'SUM(amount) AS amount',
         'MAX(created_at) AS created_at'
       )
-      .where(created_at: targetDate.in_time_zone.all_month)
+      .where(created_at: targetDate.all_month)
 
     amount = 0
     if summary.length > 0
