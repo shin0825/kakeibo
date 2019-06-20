@@ -22,7 +22,7 @@
       <tr>
         <td><%= summary.reason_name %></td>
         <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
-        <td><%= summary.created_at.in_time_zone.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        <td><%= summary.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
       </tr>
       <% end %>
     </tbody>

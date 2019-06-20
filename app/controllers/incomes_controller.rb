@@ -40,7 +40,7 @@ class IncomesController < ApplicationController
         'income_reasons.name AS reason_name',
         'SUM(incomes.amount) AS amount',
         'incomes.created_at AS created_at',
-        'date(incomes.created_at) AS created_dt'
+        'date(incomes.created_at + interval \'9 hours\') AS created_dt'
       )
       .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')

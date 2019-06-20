@@ -53,14 +53,14 @@ class SpendBudgetsController < ApplicationController
 
     def get_spend_budget_summary(targetDate)
       return SpendBudget
-        .search_target_date_between(targetDate.all_month.first, targetDate.all_month.last)
+        .search_target_date_between(targetDate.in_time_zone.all_month.first, targetDate.in_time_zone.all_month.last)
         .joins(:user)
         .joins(:spend_reason)
         .select(:id)
         .select('spend_reasons.name AS reason_name')
         .select('users.name AS user_name')
         .select(:amount)
-        .select('date(spend_budgets.target_date) AS target_dt')
+        .select('spend_budgets.target_date + interval \'9 hours\' AS target_dt')
         .order('spend_budgets.target_date desc')
         .group_by(&:target_dt)
     end
