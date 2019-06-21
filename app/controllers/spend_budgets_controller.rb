@@ -60,8 +60,7 @@ class SpendBudgetsController < ApplicationController
         .select('spend_reasons.name AS reason_name')
         .select('users.name AS user_name')
         .select(:amount)
-        .select('spend_budgets.target_date AS target_dt')
+        .select('date(spend_budgets.target_date) AS target_dt')
         .order('spend_budgets.target_date desc')
-        .group_by(&:target_dt)
     end
 end

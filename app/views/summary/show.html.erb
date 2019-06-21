@@ -91,8 +91,8 @@
             </tr>
           </thead>
           <tbody>
-            <% if @spend_summarys.length > 0 %>
-            <% @spend_summarys.each do |summary| %>
+            <% if @spend_summaries.length > 0 %>
+            <% @spend_summaries.each do |summary| %>
             <tr>
               <td><%= summary.name %></td>
               <td><%= summary.s_amount.to_s(:delimited, delimiter: ',') %></td>
@@ -137,8 +137,8 @@
             </tr>
           </thead>
           <tbody>
-            <% if @income_summarys.length > 0 %>
-            <% @income_summarys.each do |summary| %>
+            <% if @income_summaries.length > 0 %>
+            <% @income_summaries.each do |summary| %>
             <tr>
               <td><%= summary.reason_name %></td>
               <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>

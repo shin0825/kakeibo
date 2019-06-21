@@ -1,12 +1,12 @@
 <%= render 'shared/detail_pager' %>
 <% if @summary.length > 0 %>
-<% @summary.each do |key,summarys| %>
+<% @summary.group_by { |s| s.created_at.strftime('%Y/%m/%d') }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
     <% if @page_type == 'incomes' %>
-    <%= key.strftime('%Y/%m/%d') + 'の収入' %>
+    <%= key + 'の収入' %>
     <% elsif @page_type == 'spends' %>
-    <%= key.strftime('%Y/%m/%d') + 'の出費' %>
+    <%= key + 'の出費' %>
     <% end %>
   </div>
   <table class="table">
@@ -18,11 +18,11 @@
       </tr>
     </thead>
     <tbody>
-      <% summarys.each do |summary| %>
+      <% summaries.each do |summary| %>
       <tr>
         <td><%= summary.reason_name %></td>
         <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
-        <td><%= summary.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
+        <td><%= summary.created_at.strftime('%H:%M:%S') %></td>
       </tr>
       <% end %>
     </tbody>

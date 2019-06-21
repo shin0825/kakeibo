@@ -4,14 +4,14 @@ class SummaryController < ApplicationController
     if (params[:targetDate].present?)
       @p_targetDate = params[:targetDate].to_date
     end
-    @spend_summarys = get_spend_summary_by_reason(@p_targetDate)
-    @income_summarys = get_income_summary_by_reason(@p_targetDate)
+    @spend_summaries = get_spend_summary_by_reason(@p_targetDate)
+    @income_summaries = get_income_summary_by_reason(@p_targetDate)
 
-    spends_chart = @spend_summarys.to_a.pluck(:name, :s_amount)
+    spends_chart = @spend_summaries.to_a.pluck(:name, :s_amount)
     @spend_labels = spends_chart.map(&:first)
     @spend_datas = spends_chart.map(&:second)
 
-    incomes_chart = @income_summarys.to_a.pluck(:reason_name, :amount)
+    incomes_chart = @income_summaries.to_a.pluck(:reason_name, :amount)
     @income_labels = incomes_chart.map(&:first)
     @income_datas = incomes_chart.map(&:second)
 

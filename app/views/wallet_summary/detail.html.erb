@@ -1,9 +1,9 @@
 <%= render 'detail_pager' %>
 <% if @summary.length > 0 %>
-<% @summary.each do |key,summarys| %>
+<% @summary.group_by { |s| s.created_dt.strftime('%Y/%m/%d') }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
-    <%= key.strftime('%Y/%m/%d') + 'の' + @p_walletName %>
+    <%= key + 'の' + @p_walletName %>
   </div>
   <table class="table">
     <thead>
@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% summarys.each do |summary| %>
+      <% summaries.each do |summary| %>
       <tr>
         <td><%= summary.reason_name %></td>
         <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>

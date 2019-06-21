@@ -5,10 +5,10 @@
 </div>
 
 <% if @budget_summary.length > 0 %>
-<% @budget_summary.each do |key,summarys| %>
+<% @budget_summary.group_by { |s| s.target_dt.strftime('%Y/%m') }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
-    <%= key.strftime('%Y/%m') + 'の予算' %>
+    <%= key + 'の予算' %>
   </div>
   <table class="table">
     <thead>
@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <% summarys.each do |summary| %>
+      <% summaries.each do |summary| %>
       <tr>
         <td><%= link_to '消す', summary, method: :delete, data: { confirm: 'マジデ？' } %></td>
         <td><%= summary.reason_name %></td>

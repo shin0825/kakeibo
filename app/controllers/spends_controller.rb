@@ -44,7 +44,6 @@ class SpendsController < ApplicationController
       .where(created_at: targetDate.in_time_zone.all_month)
       .group('created_at', 'reason_id', 'reason_name')
       .order('spends.created_at desc')
-      .group_by(&:created_dt)
     return summary
   end
 
