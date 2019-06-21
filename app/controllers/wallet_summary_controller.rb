@@ -1,12 +1,12 @@
 class WalletSummaryController < ApplicationController
 
   def show
-    @p_targetDate = Time.now
+    @p_targetDate = Time.zone.now
     @wallet_summary = get_wallets_summary()
   end
 
   def detail
-    @p_targetDate = Time.now
+    @p_targetDate = Time.zone.now
     @p_targetDate = params[:targetDate].to_date if (params[:targetDate].present?)
 
     @p_walletName = '全て'

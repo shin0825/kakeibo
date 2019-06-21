@@ -1,6 +1,6 @@
 class IncomesController < ApplicationController
   def show
-    @p_targetDate = Time.now
+    @p_targetDate = Time.zone.now
     if (params[:targetDate].present?)
       @p_targetDate = params[:targetDate].to_date
     end
