@@ -5,7 +5,7 @@
 </div>
 
 <% if @budget_summary.length > 0 %>
-<% @budget_summary.group_by { |s| s.target_date.strftime('%Y/%m') }.map do |key, summaries| %>
+<% @budget_summary.group_by { |s| I18n.l(s.target_date, format: :ym) }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
     <%= key + 'の予算' %>
@@ -36,7 +36,7 @@
 <% end %>
 <% else %>
 <div class="card">
-  <%= @p_targetDate.strftime('%Y/%m') %>のデータ、なし
+  <%= I18n.l(@p_targetDate, format: :ym) %>のデータ、なし
 </div>
 <% end %>
 <%= render 'detail_pager' %>

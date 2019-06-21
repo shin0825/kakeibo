@@ -1,0 +1,11 @@
+ja:
+  date:
+    formats:
+      default: "%Y/%m/%d"
+      ym: "%Y/%m"
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      date: "%Y/%m/%d"
+      ym: "%Y/%m"
+      time: "%H:%M:%S"

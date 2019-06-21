@@ -63,7 +63,7 @@
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <%= @p_targetDate.strftime('%Y/%m') %>の出費
+          <%= I18n.l(@p_targetDate, format: :ym) %>の出費
         </div>
         <div class="card-body">
           <div id="spends-canvas-holder">
@@ -115,7 +115,7 @@
     <div class="col-lg-6 col-md-12 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <%= @p_targetDate.strftime('%Y/%m') %>の収入
+          <%= I18n.l(@p_targetDate, format: :ym) %>の収入
         </div>
         <div class="card-body">
           <div id="incomes-canvas-holder">
