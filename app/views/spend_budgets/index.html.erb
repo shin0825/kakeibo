@@ -5,7 +5,7 @@
 </div>
 
 <% if @budget_summary.length > 0 %>
-<% @budget_summary.group_by { |s| s.target_dt.strftime('%Y/%m') }.map do |key, summaries| %>
+<% @budget_summary.group_by { |s| s.target_date.strftime('%Y/%m') }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
     <%= key + 'の予算' %>

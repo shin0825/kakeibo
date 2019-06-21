@@ -1,6 +1,6 @@
 <%= render 'detail_pager' %>
 <% if @summary.length > 0 %>
-<% @summary.group_by { |s| s.created_dt.strftime('%Y/%m/%d') }.map do |key, summaries| %>
+<% @summary.group_by { |s| s.created_at.strftime('%Y/%m/%d') }.map do |key, summaries| %>
 <div class="card">
   <div class="card-header">
     <%= key + 'の' + @p_walletName %>
