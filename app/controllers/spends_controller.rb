@@ -28,21 +28,21 @@ class SpendsController < ApplicationController
     @del_spend = find_spend_by_id
     @del_spend.destroy
     flash[:success] = "さっきのは消しました"
-    redirect_to new_spend_path
+    redirect_back(fallback_location: root_path)
   end
 
   private
   def get_spend_summary(targetDate)
     summary =  Spend.search_without_transfar.joins(:spend_reason)
       .select(
+        'spends.id',
         'spend_reasons.id AS reason_id',
         'spend_reasons.name AS reason_name',
-        'SUM(spends.amount) AS amount',
+        'spends.amount',
         'spends.created_at AS created_at',
         'date(spends.created_at) AS created_dt'
       )
       .where(created_at: targetDate.in_time_zone.all_month)
-      .group('created_at', 'reason_id', 'reason_name')
       .order('spends.created_at desc')
     return summary
   end
@@ -54,7 +54,7 @@ class SpendsController < ApplicationController
 
   def find_spend_by_id
     if !params[:id].blank?
-      return Spend.find(params[:id])
+      f = Spend.find_by(id: params[:id])
     else
       return nil
     end

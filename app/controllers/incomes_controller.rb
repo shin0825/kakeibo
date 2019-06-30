@@ -28,22 +28,21 @@ class IncomesController < ApplicationController
     @del_income = find_income_by_id
     @del_income.destroy
     flash[:success] = "さっきのは消しました"
-    redirect_to new_income_path
+    redirect_back(fallback_location: root_path)
   end
-
 
   private
   def get_income_summary(targetDate)
     summary =  Income.search_without_transfar.joins(:income_reason)
       .select(
+        'incomes.id',
         'income_reasons.id AS reason_id',
         'income_reasons.name AS reason_name',
-        'SUM(incomes.amount) AS amount',
+        'incomes.amount',
         'incomes.created_at AS created_at',
         'date(incomes.created_at) AS created_dt'
       )
       .where(created_at: targetDate.in_time_zone.all_month)
-      .group('created_at', 'reason_id', 'reason_name')
       .order('incomes.created_at desc')
     return summary
   end
@@ -55,7 +54,7 @@ class IncomesController < ApplicationController
 
   def find_income_by_id
     if !params[:id].blank?
-      return Income.find(params[:id])
+      return Income.find_by(id: params[:id])
     else
       return nil
     end

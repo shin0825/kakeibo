@@ -23,6 +23,7 @@
         <td><%= summary.reason_name %></td>
         <td><%= summary.amount.to_s(:delimited, delimiter: ',') %></td>
         <td><%= I18n.l(summary.created_at, format: :time) %></td>
+        <td><%= link_to '消す', summary, method: :delete, data: { confirm: 'マジデ？' } %></td>
       </tr>
       <% end %>
     </tbody>
