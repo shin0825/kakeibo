@@ -1,2 +1,2 @@
-module WalletSummaryHelper
+module WalletSummariesHelper
 end

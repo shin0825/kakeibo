@@ -2,15 +2,15 @@ Rails.application.routes.draw do
   root 'static_pages#home'
   get 'spends/show'
   get 'incomes/show'
-  get 'summary/show'
-  get 'wallet_summary/show'
-  get 'wallet_summary/detail/:walletId/:year/:month', to: 'wallet_summary#detail', as: 'wallet_summary/detail'
+  get 'summaries/show'
+  get 'wallet_summaries/show'
+  get 'wallet_summaries/detail/:walletId/:year/:month', to: 'wallet_summaries#detail', as: 'wallet_summaries/detail'
   resources :incomes
   resources :spends
   resources :wallets
-  resources :summary
+  resources :summaries
   resources :transfers
-  resources :wallet_summary
+  resources :wallet_summaries
   resources :spend_budgets
   resources :monthly_closings
 end

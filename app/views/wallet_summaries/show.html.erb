@@ -1,4 +1,4 @@
-<% @wallet_summary.each do |summary| %>
+<% @wallet_summaries.each do |summary| %>
 <div class="card">
   <div class="card-header">
     <%= summary.name %>
@@ -13,7 +13,7 @@
     </h1>
   </div>
   <div class="card-footer">
-    <%= link_to '詳細', wallet_summary_detail_path(:walletId => summary.id, :year => (@p_targetDate).year, :month => (@p_targetDate).month) %>
+    <%= link_to '詳細', wallet_summaries_detail_path(:walletId => summary.id, :year => (@p_targetDate).year, :month => (@p_targetDate).month) %>
   </div>
 </div>
 <% end %>

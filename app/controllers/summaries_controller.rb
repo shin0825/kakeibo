@@ -1,4 +1,4 @@
-class SummaryController < ApplicationController
+class SummariesController < ApplicationController
   def show
     @p_targetDate = Time.zone.now
     if (params[:targetDate].present?)

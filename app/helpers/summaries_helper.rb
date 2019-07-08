@@ -1,2 +1,2 @@
-module SummaryHelper
+module SummariesHelper
 end

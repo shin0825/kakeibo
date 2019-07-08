@@ -1,8 +1,8 @@
-class WalletSummaryController < ApplicationController
+class WalletSummariesController < ApplicationController
 
   def show
     @p_targetDate = Time.zone.now
-    @wallet_summary = get_wallets_summary()
+    @wallet_summaries = get_wallet_summaries()
   end
 
   def detail
@@ -18,12 +18,12 @@ class WalletSummaryController < ApplicationController
   end
 
   private
-  def get_wallets_summary
-    wallets_summary = Wallet.joins('LEFT OUTER JOIN view_financials ON id = wallet_id')
+  def get_wallet_summaries
+    wallet_summaries = Wallet.joins('LEFT OUTER JOIN view_financials ON id = wallet_id')
       .select('id', 'name', 'SUM(COALESCE(amount, 0)) AS amount')
       .group('id', 'name')
       .order('id')
-    return wallets_summary
+    return wallet_summaries
   end
 
   def get_wallet_summary(targetDate)
