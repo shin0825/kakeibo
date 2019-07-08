@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   get 'spends/show'
   get 'incomes/show'
   get 'summaries/show'
-  get 'wallet_summaries/show'
-  get 'wallet_summaries/detail/:walletId/:year/:month', to: 'wallet_summaries#detail', as: 'wallet_summaries/detail'
+  get 'wallet_summaries/index'
+  get 'wallet_summaries/:walletId/show/:year/:month', to: 'wallet_summaries#show', as: 'wallet_summaries/show'
   resources :incomes
   resources :spends
   resources :wallets
