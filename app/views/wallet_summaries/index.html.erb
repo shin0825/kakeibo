@@ -1,0 +1,24 @@
+<% @wallet_summaries.each do |summary| %>
+<div class="card">
+  <div class="card-header">
+    <%= summary.name %>
+  </div>
+  <div class="card-body">
+    <h1>
+      <% if !summary.amount.blank? %>
+      <%= summary.amount.to_s(:delimited, delimiter: ',') %>
+      <% else %>
+      ない
+      <% end %>
+    </h1>
+  </div>
+  <div class="card-footer">
+    <%= link_to '詳細', wallet_summaries_detail_path(:walletId => summary.id, :year => (@p_targetDate).year, :month => (@p_targetDate).month) %>
+  </div>
+</div>
+<% end %>
+<footer>
+  <div class="card">
+    <%= link_to '戻る', root_path %>
+  </div>
+</footer>
