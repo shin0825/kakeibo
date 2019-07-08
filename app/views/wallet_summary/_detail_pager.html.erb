@@ -3,10 +3,10 @@
     <tbody>
       <tr>
         <td class="detail-pager-prev">
-          <%= link_to '< 前月', wallet_summary_detail_path(walletId: @p_walletId, targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '< 前月', wallet_summary_detail_path(:walletId => @p_walletId, year: (@p_targetDate - 1.months).year, month: (@p_targetDate - 1.months).month) %>
         </td>
         <td class="detail-pager-next">
-          <%= link_to '翌月 >', wallet_summary_detail_path(walletId: @p_walletId, targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '翌月 >', wallet_summary_detail_path(:walletId => @p_walletId, year: (@p_targetDate - 1.months).year, month: (@p_targetDate + 1.months).month) %>
         </td>
       </tr>
     </tbody>

@@ -13,7 +13,7 @@
     </h1>
   </div>
   <div class="card-footer">
-    <%= link_to '詳細', wallet_summary_detail_path(walletId: summary.id, targetDate: (@p_targetDate).strftime('%Y-%m-%D')) %>
+    <%= link_to '詳細', wallet_summary_detail_path(:walletId => summary.id, :year => (@p_targetDate).year, :month => (@p_targetDate).month) %>
   </div>
 </div>
 <% end %>

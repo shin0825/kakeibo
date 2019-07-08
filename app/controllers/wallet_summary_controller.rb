@@ -6,7 +6,7 @@ class WalletSummaryController < ApplicationController
   end
 
   def detail
-    @p_targetDate = Time.zone.now
+    @p_targetDate = Time.zone.local(params[:year], params[:month], 1, 0, 0, 0)
     @p_targetDate = params[:targetDate].to_date if (params[:targetDate].present?)
 
     @p_walletName = '全て'
