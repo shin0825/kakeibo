@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
-  get 'spends/show'
-  get 'incomes/show'
-  get 'summaries/show'
-  get 'wallet_summaries/index'
-  get 'wallet_summaries/:walletId/show/:year/:month', to: 'wallet_summaries#show', as: 'wallet_summaries/show'
-  resources :incomes
-  resources :spends
-  resources :wallets
-  resources :summaries
-  resources :transfers
-  resources :wallet_summaries
+
   resources :spend_budgets
+
+  get 'spends/show'
+  resources :spends
+
+  get 'incomes/show'
+  resources :incomes
+
+  resources :transfers
+
   resources :monthly_closings
+
+  get 'summaries/show'
+  resources :summaries
+
+  get 'wallet_summaries', to: 'wallet_summaries#index'
+  get 'wallet_summaries/:walletId/:year/:month', to: 'wallet_summaries#show', as: 'wallet_summaries/show'
 end
