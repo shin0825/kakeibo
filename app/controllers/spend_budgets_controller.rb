@@ -5,8 +5,8 @@ class SpendBudgetsController < ApplicationController
     @spend_budgets = SpendBudget.all
 
     @p_targetDate = Time.zone.now
-    if (params[:targetDate].present?)
-      @p_targetDate = params[:targetDate].to_date
+    if (params[:year].present? && params[:month].present?)
+      @p_targetDate = Time.zone.local(params[:year], params[:month], 1, 0, 0, 0)
     end
 
     @budget_summary = get_spend_budget_summary(@p_targetDate)
@@ -23,7 +23,8 @@ class SpendBudgetsController < ApplicationController
     @spend_budget = SpendBudget.new(spend_budget_params)
 
     if @spend_budget.save
-      redirect_to spend_budgets_path(targetDate: @spend_budget[:target_date].strftime('%Y-%m-%D')), notice: 'Spend budget was successfully created.'
+      flash[:success] = '予定を立てたからお金を守ろう'
+      redirect_to spend_budgets_index_path(:year => (@spend_budget[:target_date]).year, :month => (@spend_budget[:target_date]).month)
     else
       render :new
     end
@@ -31,7 +32,8 @@ class SpendBudgetsController < ApplicationController
 
   def update
     if @spend_budget.update(spend_budget_params)
-      redirect_to spend_budgets_url, notice: 'Spend budget was successfully updated.'
+      flash[:success] = '予定を立て直しました'
+      redirect_to spend_budgets_index_path(:year => (@spend_budget[:target_date]).year, :month => (@spend_budget[:target_date]).month)
     else
       render :edit
     end
@@ -39,7 +41,8 @@ class SpendBudgetsController < ApplicationController
 
   def destroy
     @spend_budget.destroy
-    redirect_to spend_budgets_url, notice: 'Spend budget was successfully destroyed.'
+    flash[:success] = '予定をなんてなかった、いいね？'
+    redirect_to spend_budgets_url
   end
 
   private

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'static_pages#home'
 
+  get 'spend_budgets/monthly/:year/:month', to: 'spend_budgets#index', as: 'spend_budgets/index'
   resources :spend_budgets
 
   get 'spends/:year/:month', to: 'spends#index', as: 'spends/index'
