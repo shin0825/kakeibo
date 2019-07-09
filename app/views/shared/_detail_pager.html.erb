@@ -4,17 +4,17 @@
       <tr>
         <% if @page_type == 'incomes' %>
         <td class="detail-pager-prev">
-          <%= link_to '< 前月', incomes_show_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '< 前月', incomes_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
         </td>
         <td class="detail-pager-next">
-          <%= link_to '翌月 >', incomes_show_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '翌月 >', incomes_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
         </td>
         <% elsif @page_type == 'spends' %>
         <td class="detail-pager-prev">
-          <%= link_to '< 前月', spends_show_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '< 前月', spends_path(targetDate: (@p_targetDate - 1.months).strftime('%Y-%m-%D')) %>
         </td>
         <td class="detail-pager-next">
-          <%= link_to '翌月 >', spends_show_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
+          <%= link_to '翌月 >', spends_path(targetDate: (@p_targetDate + 1.months).strftime('%Y-%m-%D')) %>
         </td>
         <% end %>
       </tr>

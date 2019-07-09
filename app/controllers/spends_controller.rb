@@ -1,5 +1,5 @@
 class SpendsController < ApplicationController
-  def show
+  def index
     @p_targetDate = Time.zone.now
     if (params[:targetDate].present?)
       @p_targetDate = params[:targetDate].to_date
