@@ -7,7 +7,6 @@ class WalletSummariesController < ApplicationController
 
   def show
     @p_targetDate = Time.zone.local(params[:year], params[:month], 1, 0, 0, 0)
-    @p_targetDate = params[:targetDate].to_date if (params[:targetDate].present?)
 
     @p_walletName = '全て'
     @p_walletName = Wallet.find_by(id: params[:walletId]).name if (params[:walletId].present? && !params[:walletId].blank?)
