@@ -3,17 +3,17 @@ Rails.application.routes.draw do
 
   resources :spend_budgets
 
-  get 'spends/show'
+  get 'spends/:year/:month', to: 'spends#index', as: 'spends/index'
   resources :spends
 
-  get 'incomes/show'
+  get 'incomes/:year/:month', to: 'incomes#index', as: 'incomes/index'
   resources :incomes
 
   resources :transfers
 
   resources :monthly_closings
 
-  get 'summaries/show'
+  get 'summaries/:year/:month', to: 'summaries#index', as: 'summaries/index'
   resources :summaries
 
   get 'wallet_summaries', to: 'wallet_summaries#index'

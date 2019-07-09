@@ -1,8 +1,8 @@
 class SpendsController < ApplicationController
   def index
     @p_targetDate = Time.zone.now
-    if (params[:targetDate].present?)
-      @p_targetDate = params[:targetDate].to_date
+    if (params[:year].present? && params[:month].present?)
+      @p_targetDate = Time.zone.local(params[:year], params[:month], 1, 0, 0, 0)
     end
     @page_type = "spends"
 
