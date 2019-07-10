@@ -14,4 +14,5 @@
 //= require jquery
 //= require bootstrap
 //= require Chart.min
+//= require toastr
 //= require_tree .
