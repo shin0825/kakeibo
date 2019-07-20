@@ -1,13 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  amount: 1
+  amount: 100
   wallet: one
-  reason: one
+  spend_reason: one
   user: one
 
 two:
-  amount: 1
+  amount: 200
   wallet: two
-  reason: two
+  spend_reason: one
+  user: one
+
+three:
+  amount: 300
+  wallet: one
+  spend_reason: two
+  user: one
+
+four:
+  amount: 400
+  wallet: two
+  spend_reason: two
   user: two
