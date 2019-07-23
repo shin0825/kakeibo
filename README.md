@@ -1,13 +1,6 @@
 # kakeibo web application
 
-## 1. table architecture
-
-- 基本概念<br>
-  wallet -> `has_many` -> spend<br>
-  wallet -> `has_many` -> income<br>
-  spend summary is "支出"<br>
-  income summary is "収入"<br>
-  <br>
+## 1. table
 
 **wallets** `MASTER`
 
@@ -96,20 +89,10 @@
 
 <br>
 
-## 2. design architecture
+## 2. design
+- `各resourceに対応したCRUD`（usersは未対応）
 
-- "`spends` or `incomes` amount input"で計算機が表示されていると嬉しい
-- `user` login<br>
-  -> `spends` or `incomes` or `transfers` or `summary` choice<br>
-  -> `wallets` choice if choice==(`spends` or `incomes`)<br>
-  ->-> `reasons` choice<br>
-  ->-> `spends` or `incomes` amount input<br>
-  ->-> send commit!<br>
-  -> get `summary` page if choice==(`summary`)<br>
-
-- SPA で実装する
-- `transfers`を選択した場合は、`各reason_id`をシステム値`999(振替)`にして、下記の処理を行う<br>
-
+- `transfers`（財布間移動）：`各reason_id`をシステム値`999(振替)`にして、出費収入処理を行う<br>
 ```rb
 spend(amount: `振替額`, wallet_id: `振替先wallet_id`, spend_reason_id: `999`)<br>
 income(amount: `振替額`, wallet_id: `振替もとwallet_id`, income_reason_id: `999`)
