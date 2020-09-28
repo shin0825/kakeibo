@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   get 'wallet_summaries', to: 'wallet_summaries#index'
   get 'wallet_summaries/:walletId/:year/:month', to: 'wallet_summaries#show', as: 'wallet_summaries/show'
+
+  post '/callback', to: 'linebot#callback'
 end
