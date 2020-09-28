@@ -31,10 +31,10 @@ class LinebotController < ApplicationController
           end
 
           amount = texts[2].to_i
-          userId = event['source']['userId'].delete("^0-9").to_i
+          userId = event['source']['userId']
 
           spend = Spend.new(amount: amount, wallet_id: wallet.id, spend_reason_id: reason.id,
-            user_id: userId)
+            user_id: userId.delete("^0-9").to_i)
           spend.save!
 
           message = {
@@ -44,9 +44,9 @@ class LinebotController < ApplicationController
           client.push_message(userId, message)
         end
       when Line::Bot::Event::Follow
-        userId = event['source']['userId'].delete("^0-9").to_i
+        userId = event['source']['userId']
         displayName = 'LINEから'
-        User.find_or_create_by(id: userId, name: displayName.to_s)
+        User.find_or_create_by(id: userId.delete("^0-9").to_i, name: displayName.to_s)
         message_text = displayName.to_s + 'のユーザー情報を登録しました。'
         message = {
           type: 'text',
@@ -54,9 +54,9 @@ class LinebotController < ApplicationController
         }
         client.push_message(userId, message)
       when Line::Bot::Event::Unfollow
-        userId = event['source']['userId'].delete("^0-9").to_i
+        userId = event['source']['userId']
         displayName = 'LINEから'
-        user = User.find_by(id: userId)
+        user = User.find_by(id: userId.delete("^0-9").to_i)
         user.destroy if user.present?
         message_text = displayName.to_s + 'のユーザー情報を削除しました。'
         message = {
