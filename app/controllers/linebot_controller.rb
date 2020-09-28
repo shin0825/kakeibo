@@ -20,6 +20,28 @@ class LinebotController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          texts = event.message['text'].split(",")
+
+          return unless SpendReason.find_by(name: texts[0])
+          reason = SpendReason.find_by(name: texts[0])
+
+          wallet = Wallet.first
+          if Wallet.find_by(name: texts[1])
+            wallet = Wallet.find_by(name: texts[1])
+          end
+
+          amount = texts[2].to_i
+          userId = event['source']['userId']
+
+          spend = Spend.new(amount: amount, wallet_id: wallet.id, spend_reason_id: reason.id,
+            user_id: userId)
+          spend.save!
+
+          message = {
+            type: 'text',
+            text: reason.name + 'を' + wallet.name + 'から' + amount.to_s + '円使った。'
+          }
+          client.push_message(userId, message)
         end
       when Line::Bot::Event::Follow
         userId = event['source']['userId']
