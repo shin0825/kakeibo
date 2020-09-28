@@ -52,6 +52,7 @@ class LinebotController < ApplicationController
           type: 'text',
           text: message_text
         }
+        puts userId + 'に' + message_text + 'と言います。'
         client.push_message(userId, message)
       when Line::Bot::Event::Unfollow
         userId = event['source']['userId']
@@ -63,6 +64,7 @@ class LinebotController < ApplicationController
           type: 'text',
           text: message_text
         }
+        puts userId + 'に' + message_text + 'と言います。'
         client.push_message(userId, message)
       end
     }
